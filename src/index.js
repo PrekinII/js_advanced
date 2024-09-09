@@ -36,15 +36,21 @@ export function orderByProps(obj, order) {
 orderByProps(obj, ["name", "level"])
 
 // Destructuring
-export function getSpecialAttacks(character, id) {
-    const specialItem = character.special.find(item => item.id === id);
-    if (specialItem) {
-        return {...specialItem, description: specialItem.description || "Описание не доступно"}
-    } else {
-        return null; 
-    }
-}
-  
+// export function getSpecialAttacks(character, id) {
+//     const specialItem = character.special.find(item => item.id === id);
+//     if (specialItem) {
+//         return {...specialItem, description: specialItem.description || "Описание не доступно"}
+//     } else {
+//         return null; 
+//     }
+// }
+export function getSpecial(character) {
+    const { special } = character;
+    const specialAttacks = special.map(({ id, name, icon, description = "Описание не доступно" }) => ({
+        id, name, icon, description
+    }));
+    return specialAttacks;
+}  
 
 const character = {
     name: 'Лучник',
@@ -69,4 +75,4 @@ const character = {
         ]
 }
 
-getSpecialAttacks(character, 9)
+getSpecial(character)

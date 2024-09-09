@@ -1,6 +1,6 @@
 import { loadUser } from '../user';
 import { httpGet } from '../http';
-import health, { getSpecialAttacks, orderByProps } from "../../index";
+import health, { getSpecial, orderByProps } from "../../index";
 import { Bowman } from '../app';
 import { Swordsman } from '../app';
 import { Magician } from '../app';
@@ -180,7 +180,68 @@ test("testing orderByProps", () => {
     expect(orderByProps(obj, order)).toEqual(expected);
   });
 
-test("testing getSpecialAttacks", () => {
+// test("testing getSpecialAttacks", () => {
+//   const character = {
+//     name: 'Лучник',
+//     type: 'Bowman',
+//     health: 50,
+//     level: 3,
+//     attack: 40,
+//     defence: 10,
+//     special: [
+//       {
+//         id: 8,
+//         name: 'Двойной выстрел',
+//         icon: 'http://...',
+//         description: 'Двойной выстрел наносит двойной урон'
+//       }, 
+//       {
+//         id: 9,
+//         name: 'Нокаутирующий удар',
+//         icon: 'http://...'
+//         // <- обратите внимание, описание "засекречено"
+//         }
+//       ]
+//     }
+//     const id = 9;
+//     const expected = {
+//       id: 9,
+//       name: 'Нокаутирующий удар',
+//       icon: 'http://...',
+//       description: 'Описание не доступно'
+//     };
+//     expect(getSpecialAttacks(character, id)).toEqual(expected);
+//   });
+
+// test("testing getSpecialNull", () => {
+//     const character = {
+//       name: 'Лучник',
+//       type: 'Bowman',
+//       health: 50,
+//       level: 3,
+//       attack: 40,
+//       defence: 10,
+//       special: [
+//           {
+//               id: 8,
+//               name: 'Двойной выстрел',
+//               icon: 'http://...',
+//               description: 'Двойной выстрел наносит двойной урон'
+//           }, 
+//           {
+//               id: 9,
+//               name: 'Нокаутирующий удар',
+//               icon: 'http://...'
+//               // <- обратите внимание, описание "засекречено"
+//               }
+//           ]
+//         }
+//     const id = 10;
+//       const expected = null;
+//       expect(getSpecialAttacks(character, id)).toEqual(expected);
+//     });
+
+test("testing getSpecial", () => {
   const character = {
     name: 'Лучник',
     type: 'Bowman',
@@ -203,40 +264,19 @@ test("testing getSpecialAttacks", () => {
         }
       ]
     }
-    const id = 9;
-    const expected = {
-      id: 9,
-      name: 'Нокаутирующий удар',
-      icon: 'http://...',
-      description: 'Описание не доступно'
-    };
-    expect(getSpecialAttacks(character, id)).toEqual(expected);
+    const expected = [
+      {
+        id: 8,
+        name: 'Двойной выстрел',
+        icon: 'http://...',
+        description: 'Двойной выстрел наносит двойной урон'
+      },
+      {
+        id: 9,
+        name: 'Нокаутирующий удар',
+        icon: 'http://...',
+        description: 'Описание не доступно'
+      }
+    ];
+    expect(getSpecial(character)).toEqual(expected);
   });
-
-test("testing getSpecialNull", () => {
-    const character = {
-      name: 'Лучник',
-      type: 'Bowman',
-      health: 50,
-      level: 3,
-      attack: 40,
-      defence: 10,
-      special: [
-          {
-              id: 8,
-              name: 'Двойной выстрел',
-              icon: 'http://...',
-              description: 'Двойной выстрел наносит двойной урон'
-          }, 
-          {
-              id: 9,
-              name: 'Нокаутирующий удар',
-              icon: 'http://...'
-              // <- обратите внимание, описание "засекречено"
-              }
-          ]
-        }
-    const id = 10;
-      const expected = null;
-      expect(getSpecialAttacks(character, id)).toEqual(expected);
-    });
